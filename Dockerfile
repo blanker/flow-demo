@@ -52,4 +52,5 @@ COPY . /app
 # 编译项目
 RUN cargo build
 RUN cargo run --example test_imagesize
+RUN cargo run --example test_ffmpeg
 
