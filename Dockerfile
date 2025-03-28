@@ -2,7 +2,7 @@ FROM rust:1-bullseye AS builder
 
 # RUN apt-get update && apt-get install -y lua5.4 lua5.4-dev
 RUN apt-get update
-RUN apt-get install -y libpq-dev cmake
+RUN apt-get install -y libpq-dev cmake clang libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev pkg-config 
 
 # 安装lua 5.4.7
 COPY lua-5.4.7.tar.gz .
