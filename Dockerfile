@@ -14,13 +14,13 @@ RUN which lua
 COPY luarocks-3.11.1.tar.gz .
 RUN tar zxpf luarocks-3.11.1.tar.gz
 RUN cd luarocks-3.11.1 && ./configure && make && make install
-RUN luarocks install luasql-postgres PGSQL_INCDIR=/usr/include/postgresql LUA_INCDIR=/usr/include/lua --force --lua-version=5.4
-RUN luarocks install lua-cjson LUA_INCDIR=/usr/include/lua --force --lua-version=5.4
-RUN luarocks install luaossl LUA_INCDIR=/usr/include/lua --force --lua-version=5.4
-RUN luarocks install jsonschema LUA_INCDIR=/usr/include/lua --force --lua-version=5.4
+RUN luarocks install luasql-postgres PGSQL_INCDIR=/usr/include/postgresql LUA_INCDIR=/usr/local/include --force --lua-version=5.4
+RUN luarocks install lua-cjson LUA_INCDIR=/usr/local/include --force --lua-version=5.4
+RUN luarocks install luaossl LUA_INCDIR=/usr/local/include --force --lua-version=5.4
+RUN luarocks install jsonschema LUA_INCDIR=/usr/local/include --force --lua-version=5.4
 
-RUN luarocks install luasocket LUA_INCDIR=/usr/include/lua --force --lua-version=5.4
-RUN luarocks install luasystem LUA_INCDIR=/usr/include/lua --force --lua-version=5.4
+RUN luarocks install luasocket LUA_INCDIR=/usr/local/include --force --lua-version=5.4
+RUN luarocks install luasystem LUA_INCDIR=/usr/local/include --force --lua-version=5.4
 
 # 安装mongo-c-driver-1.27.6.tar.gz
 COPY mongo-c-driver-1.27.6.tar.gz .
@@ -40,8 +40,8 @@ RUN cmake -S $SOURCE -B $BUILD \
 RUN cmake --build $BUILD --config RelWithDebInfo --parallel
 RUN cmake --install "$BUILD" --prefix "$PREFIX" --config RelWithDebInfo
 
-RUN luarocks install lua-mongo LIBBSON_DIR="$PREFIX" LIBMONGOC_DIR="$PREFIX" LUA_INCDIR=/usr/include/lua --force --lua-version=5.4
-# RUN luarocks install lua-mongo LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
+RUN luarocks install lua-mongo LIBBSON_DIR="$PREFIX" LIBMONGOC_DIR="$PREFIX" LUA_INCDIR=/usr/local/include --force --lua-version=5.4
+# RUN luarocks install lua-mongo LUA_INCDIR=/usr/local/include --force --lua-version=5.4
 
 RUN lua -v
 RUN luarocks --version
