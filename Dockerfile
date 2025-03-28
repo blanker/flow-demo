@@ -14,6 +14,8 @@ RUN luarocks install luaossl LUA_INCDIR=/usr/include/lua5.4 --force --lua-versio
 RUN luarocks install jsonschema LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
 
 RUN luarocks install luasocket LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
+RUN luarocks install luasystem LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
+RUN luarocks install lua-mongo LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
 
 RUN lua -v
 RUN luarocks --version
