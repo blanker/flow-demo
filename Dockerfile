@@ -37,7 +37,7 @@ RUN cd mongo-c-driver-1.27.6 \
       -D BUILD_VERSION="$VERSION" \
       -D ENABLE_MONGOC=ON \
    && cmake --build $BUILD --config RelWithDebInfo --parallel \
-   && cmake --install "$BUILD" --prefix "$PREFIX" --config RelWithDebInfo
+   && cmake --install "$BUILD" --prefix "$PREFIX" --config RelWithDebInfo \
    && luarocks install lua-mongo LIBBSON_DIR="$PREFIX" LIBMONGOC_DIR="$PREFIX" LUA_INCDIR=/usr/local/include --force --lua-version=5.4
 # RUN luarocks install lua-mongo LUA_INCDIR=/usr/local/include --force --lua-version=5.4
 
