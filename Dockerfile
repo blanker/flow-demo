@@ -12,3 +12,9 @@ RUN luarocks install luasql-postgres PGSQL_INCDIR=/usr/include/postgresql LUA_IN
 RUN luarocks install lua-cjson LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
 RUN luarocks install luaossl LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
 RUN luarocks install jsonschema LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
+
+RUN luarocks install luasocket LUA_INCDIR=/usr/include/lua5.4 --force --lua-version=5.4
+
+RUN lua -v
+RUN luarocks --version
+RUN luarocks list
