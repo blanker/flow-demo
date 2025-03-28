@@ -26,21 +26,19 @@ RUN luarocks install luasystem LUA_INCDIR=/usr/local/include --force --lua-versi
 COPY mongo-c-driver-1.27.6.tar.gz .
 RUN tar zxf mongo-c-driver-1.27.6.tar.gz
 RUN cd mongo-c-driver-1.27.6 \
-    && export SOURCE=$(pwd) \
+    && export SOURCE=$(pwd) && echo $SOURCE \
     && export BUILD=$SOURCE/_build \
     && export VERSION="1.27.6" \
-    && export PREFIX=$SOURCE/_install
-    
-RUN cmake -S $SOURCE -B $BUILD \
-  -D ENABLE_EXTRA_ALIGNMENT=OFF \
-  -D ENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF \
-  -D CMAKE_BUILD_TYPE=RelWithDebInfo \
-  -D BUILD_VERSION="$VERSION" \
-  -D ENABLE_MONGOC=ON
-RUN cmake --build $BUILD --config RelWithDebInfo --parallel
-RUN cmake --install "$BUILD" --prefix "$PREFIX" --config RelWithDebInfo
-
-RUN luarocks install lua-mongo LIBBSON_DIR="$PREFIX" LIBMONGOC_DIR="$PREFIX" LUA_INCDIR=/usr/local/include --force --lua-version=5.4
+    && export PREFIX=$SOURCE/_install \
+    && cmake -S $SOURCE -B $BUILD \
+      -D ENABLE_EXTRA_ALIGNMENT=OFF \
+      -D ENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF \
+      -D CMAKE_BUILD_TYPE=RelWithDebInfo \
+      -D BUILD_VERSION="$VERSION" \
+      -D ENABLE_MONGOC=ON \
+   && cmake --build $BUILD --config RelWithDebInfo --parallel \
+   && cmake --install "$BUILD" --prefix "$PREFIX" --config RelWithDebInfo
+   && luarocks install lua-mongo LIBBSON_DIR="$PREFIX" LIBMONGOC_DIR="$PREFIX" LUA_INCDIR=/usr/local/include --force --lua-version=5.4
 # RUN luarocks install lua-mongo LUA_INCDIR=/usr/local/include --force --lua-version=5.4
 
 RUN lua -v
