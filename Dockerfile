@@ -44,3 +44,12 @@ RUN cd mongo-c-driver-1.27.6 \
 RUN lua -v
 RUN luarocks --version
 RUN luarocks list
+
+# 设置工作目录
+WORKDIR /app
+# 复制源代码
+COPY . /app
+# 编译项目
+RUN cargo build
+RUN cargo run --example test_imagesize
+
