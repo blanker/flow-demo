@@ -7,6 +7,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "LD_LIBRARY_PATH $LD_LIBRARY_PATH"
+      - run: echo "PATH $PATH"
+      - run: echo "C_INCLUDE_PATH $C_INCLUDE_PATH"
+      - run: echo "LIBRARY_PATH $LIBRARY_PATH"
+      - run: ldconfig
+      - run: ldconfig -p | grep libmongoc
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
