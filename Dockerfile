@@ -1,10 +1,14 @@
 FROM rust:1-bullseye AS builder
 
 # RUN apt-get update && apt-get install -y lua5.4 lua5.4-dev
-RUN apt-get update && apt-get install -y fonts-noto
-RUN apt-get update && apt-get install -y libgl1-mesa-glx
-RUN apt-get update && apt-get install -y strace
-RUN apt-get update && apt-get install -y ttf-mscorefonts-installer
+
+# 启用 contrib 和 non-free 仓库
+# 设置自动接受微软字体 EULA
+RUN sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
+    && echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
+
+RUN apt-get update \
+    && apt-get install -y fonts-noto libgl1-mesa-glx strace ttf-mscorefonts-installer
 
 RUN apt-get update \
     && apt-get install -y libpq-dev cmake clang libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev pkg-config \
