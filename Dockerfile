@@ -1,6 +1,11 @@
 FROM rust:1-bullseye AS builder
 
 # RUN apt-get update && apt-get install -y lua5.4 lua5.4-dev
+RUN apt-get update && apt-get install -y fonts-noto
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
+RUN apt-get update && apt-get install -y strace
+RUN apt-get update && apt-get install -y ttf-mscorefonts-installer
+
 RUN apt-get update \
     && apt-get install -y libpq-dev cmake clang libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev pkg-config \
     && apt-get install -y --no-install-recommends  wget gpg \
@@ -11,7 +16,6 @@ RUN apt-get update \
     && apt-get purge -y wget \
     && apt-get autoremove -y \
     && apt-get install -y libpq5 ca-certificates libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev \
-    && apt-get install -y ttf-mscorefonts-installer fonts-noto libgl1-mesa-glx strace \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
