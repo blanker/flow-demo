@@ -8,7 +8,8 @@ RUN sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
     && echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
 
 RUN apt-get update \
-    && apt-get install -y fonts-noto libgl1-mesa-glx strace ttf-mscorefonts-installer
+    && apt-get install -y fonts-noto libgl1-mesa-glx strace ttf-mscorefonts-installer 
+    && apt-get install -y libxinerama1 libdbus-glib-1-2 libcups2 libcairo2 libsm6 libfontconfig1 libxrender1 libxext6 libfreetype6
 
 RUN apt-get update \
     && apt-get install -y libpq-dev cmake clang libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev pkg-config \
