@@ -1,15 +1,19 @@
 FROM rust:1-bullseye AS builder
 
 # RUN apt-get update && apt-get install -y lua5.4 lua5.4-dev
-RUN apt-get update
-RUN apt-get install -y libpq-dev cmake clang libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev pkg-config 
-
-RUN apt-get update && apt-get install -y software-properties-common
-RUN add-apt-repository ppa:libreoffice/ppa \ 
-   && apt-get update \
-   && apt-get install -y libpq5 ca-certificates libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev \
-   && apt-get install -y libreoffice ttf-mscorefonts-installer fonts-noto libgl1-mesa-glx strace
-RUN apt-get clean
+RUN apt-get update \
+    && apt-get install -y libpq-dev cmake clang libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev pkg-config \
+    && apt-get install -y --no-install-recommends  wget gpg \
+    && wget http://download.documentfoundation.org/libreoffice/stable/25.2.2/deb/x86_64/LibreOffice_25.2.2_Linux_x86-64_deb.tar.gz \
+    && tar -xzf LibreOffice_*.tar.gz \
+    && dpkg -i LibreOffice_*/DEBS/*.deb \
+    && rm -rf LibreOffice_* \
+    && apt-get purge -y wget \
+    && apt-get autoremove -y \
+    && apt-get install -y libpq5 ca-certificates libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev \
+    && apt-get install -y ttf-mscorefonts-installer fonts-noto libgl1-mesa-glx strace \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # 安装lua 5.4.7
 COPY lua-5.4.7.tar.gz .
