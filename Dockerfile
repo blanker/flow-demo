@@ -1,7 +1,7 @@
 FROM rust:1-bullseye AS builder
 
 RUN apt-get update \
-    && apt-get install -y lua5.4 lua5.4-dev
+    && apt-get install -y lua5.4 lua5.4-dev \
     && apt-get install -y libpq-dev cmake clang libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev pkg-config
 
 COPY luarocks-3.11.1.tar.gz .
