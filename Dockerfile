@@ -42,6 +42,7 @@ RUN sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
    && apt-get install -y strace fonts-noto libgl1-mesa-glx strace ttf-mscorefonts-installer \
    && apt-get install -y libxinerama1 libdbus-glib-1-2 libcups2 libcairo2 libsm6 libfontconfig1 libxrender1 libxext6 libfreetype6 \
    && apt-get install -y --no-install-recommends  wget gpg \
+   && wget http://download.documentfoundation.org/libreoffice/stable/25.2.2/deb/x86_64/LibreOffice_25.2.2_Linux_x86-64_deb.tar.gz \
    && tar -xzf LibreOffice_*.tar.gz \
    && dpkg -i LibreOffice_*/DEBS/*.deb \
    && rm -rf LibreOffice_* \
