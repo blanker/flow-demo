@@ -4,6 +4,13 @@ FROM rust:1-bullseye AS builder
 RUN apt-get update
 RUN apt-get install -y libpq-dev cmake clang libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev pkg-config 
 
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository ppa:libreoffice/ppa \ 
+   && apt-get update \
+   && apt-get install -y libpq5 ca-certificates libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev \
+   && apt-get install -y libreoffice ttf-mscorefonts-installer fonts-noto libgl1-mesa-glx strace
+RUN apt-get clean
+
 # 安装lua 5.4.7
 COPY lua-5.4.7.tar.gz .
 RUN tar zxf lua-5.4.7.tar.gz
